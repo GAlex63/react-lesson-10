@@ -1,6 +1,5 @@
 import React from 'react';
 import Game from './components/Game';
-import Field from './components/Field';
 import './App.css';
 
 export const App = () => {

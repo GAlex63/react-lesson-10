@@ -24,15 +24,13 @@ export default function Game() {
     }, [field, winner])
 
 	const handleClick = (index) => {
-        if (field[index] || winner) return
-        field[index] = currentPlayer
-        setField([...field])
-        setCurrentPlayer(currentPlayer === 'x' ? 'o' : 'x')
-        // let newField = [...field];
-        // if (winner || newField[index]) return
-        // newField[index] = currentPlayer ? 'x' : 'o'
-        // setField(newField)
-        // setCurrentPlayer(!currentPlayer)
+        
+        let newField = [...field];
+        if (winner || newField[index]) return
+        newField[index] = currentPlayer ? 'x' : 'o'
+        setField(newField)
+        setCurrentPlayer(!currentPlayer)
+        
 	}
 
     const restartGame = () => {

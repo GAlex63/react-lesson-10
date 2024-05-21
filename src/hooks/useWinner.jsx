@@ -1,4 +1,3 @@
-import React from "react";
 
 export function useWinner(buttons) {
     const WIN_PATTERNS = [
@@ -15,23 +14,9 @@ export function useWinner(buttons) {
       for (let i = 0; i < WIN_PATTERNS.length; i++) {
         const [a, b, c] = WIN_PATTERNS[i];
         if (buttons[a] && buttons[a] === buttons[b] && buttons[a] === buttons[c]) {
-            return {winner: buttons[a]};
+        return {winner: buttons[a]};
         }
     }
-    return {winner: null}
+    
+    return null
 }
-
-
-      // const isDraw = !buttons.includes(null)
-      // if (isDraw) {
-      //   return { winner: null, draw: isDraw }
-      // }
-
-      // for (let i=0; i < WIN_PATTERNS.length; i++) {
-      //   const [a, b, c] = WIN_PATTERNS[i]
-      //   if (buttons[a] && buttons[a] === buttons[b] && buttons[a] === buttons[c]) {
-      //       return {winner:buttons[a], draw: false }
-      //   }
-      // }
-      // return { winner: null, draw: isDraw }
-      // // return null

@@ -6,7 +6,7 @@ export default function Information({winner, currentPlayer, isDraw}) {
 
     const endGame = () => {
         if (winner) {
-            return 'Победитель:' + winner
+            return 'Победитель: ' + winner.winner
         }
         if (!winner && isDraw) {
             return 'Ничья'
@@ -14,7 +14,6 @@ export default function Information({winner, currentPlayer, isDraw}) {
             return 'Сейчас ходит: ' + (currentPlayer ? 'x' : 'o')
         }
     }
-    // const whosNext = () => winner ? 'Победитель: ' + winner : 'Сейчас ходит: ' + (currentPlayer ? 'x' : 'o')
 
     return(
         <p> {endGame()} </p>

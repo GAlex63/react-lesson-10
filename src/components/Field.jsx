@@ -1,6 +1,7 @@
 import '../App.css'
 import Square from "./Square";
 
+
 export default function Field({field, setSquareValue}) {
 
     return(
