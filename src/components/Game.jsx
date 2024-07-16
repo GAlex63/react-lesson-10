@@ -1,52 +1,53 @@
 import { useState, useEffect } from "react";
 import '../App.css'
 import Field from "./Field";
-import { useWinner } from "../hooks/useWinner";
 import Information from "./Information";
+import { useWinner } from "../hooks/useWinner";
+import { setField, setCurrentPlayer, setIsGameEnded, setIsDraw, restartGame} from '../actions'
+import { store } from '../store'
 
 export default function Game() {
+    const [state, setState] = useState(store.getState())
 
-    const [field, setField] = useState(Array(9).fill(null));
-	const [currentPlayer, setCurrentPlayer] = useState('x');
-	const [isGameEnded, setIsGameEnded] = useState(false);
-	const [isDraw, setIsDraw] = useState(false);
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            setState(store.getState())
+        })
+        return () => unsubscribe()
+    }, [])
 
-    const winner = useWinner(field)
+    const winner = useWinner(state.field)
 
     useEffect(() => {
         if(winner) {
-            setIsGameEnded(true);
-        } else if(!field.includes(null)) {
-            setIsDraw(true);
+            store.dispatch(setIsGameEnded(true));
+        } else if(!state.field.includes(null)) {
+            store.dispatch(setIsDraw(true));
         } else {
-            setIsDraw(false)
+            store.dispatch(setIsDraw(false))
         }
-    }, [field, winner])
+    }, [state.field, winner])
 
 	const handleClick = (index) => {
-        
-        let newField = [...field];
-        if (winner || newField[index]) return
-        newField[index] = currentPlayer ? 'x' : 'o'
-        setField(newField)
-        setCurrentPlayer(!currentPlayer)
+        let newField = [...state.field];
+        if (winner || state.field[index]) return
+        newField[index] = state.currentPlayer ? 'x' : 'o'
+        store.dispatch(setField(newField))
+        store.dispatch(setCurrentPlayer(!state.currentPlayer))
         
 	}
 
-    const restartGame = () => {
-        setField(Array(9).fill(null))
-        setCurrentPlayer('x')
-        setIsGameEnded(false)
-        setIsDraw(false)
+    const handleRestartGame = () => {
+        store.dispatch(restartGame())
     }
 
     return(
         <div className='wrapper'>
-            <Field field={field} setSquareValue = {handleClick}/>
-           <Information winner={winner} currentPlayer={currentPlayer} isDraw={isDraw} />
+            <Field field={state.field} setSquareValue = {handleClick}/>
+           <Information winner={winner} currentPlayer={state.currentPlayer} isDraw={state.isDraw} />
             <button 
             className='startNewGameBtn' 
-            onClick={restartGame}>Начать заново</button>
+            onClick={handleRestartGame}>Начать заново</button>
         </div>
     )
 }
