@@ -1,3 +1,4 @@
+import createStore from 'redux';
 import { appReducer, initialState } from './reducer';
 
 const createStore = (reducer, initialState) => {
