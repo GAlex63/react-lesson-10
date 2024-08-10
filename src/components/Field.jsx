@@ -3,7 +3,7 @@ import Square from "./Square";
 
 
 export default function Field({field, setSquareValue}) {
-
+    
     return(
         <div className='field'>
             {field.map((square, index) => {

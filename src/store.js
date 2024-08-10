@@ -1,4 +1,4 @@
-import createStore from 'redux';
+import { createStore as reduxCreateStore } from 'redux';
 import { appReducer, initialState } from './reducer';
 
 const createStore = (reducer, initialState) => {
